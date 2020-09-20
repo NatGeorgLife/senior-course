@@ -1,0 +1,17 @@
+__________________________________________________________
+Webpack
+    -Bable
+    -SCSS
+    -ESLint
+    -Two Modes:
+        -Prod (Minified Code)
+        -Dev (Dev-server, SourceMaps, ESLint, NotMinified)
+__________________________________________________________
+Git
+    Production
+        1.0.0
+        0------
+    Development
+        1.0.1
+        1--------- + ---
+__________________________________________________________
