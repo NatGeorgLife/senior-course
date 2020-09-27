@@ -1,0 +1,32 @@
+@import "variables.scss";
+@import "mixins.scss";
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $header-height;
+    padding: 8px 4px 0px;
+    display: flex;
+    justify-content: space-between;
+    &__input{
+        height: 20px;
+        padding: 2px 7px;
+        border: none;
+        outline: none;
+        border-radius: 2px;
+        color: #000;
+        font-size: 18px;
+        line-height: 22px;
+        &:hover{
+            border: 1px solid $border-color;
+        }
+        &:focus{
+            border: 2px solid #1a73e8;
+        }
+    }
+    &__button{
+        @include button(red)
+    }
+}
