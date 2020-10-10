@@ -35,6 +35,23 @@ class DOM {
     off(event, callback) {
         this.$el.removeEventListener(event, callback)
     }
+    findAll(selector) {
+        return this.$el.querySelectorAll(selector)
+    }
+    get data() {
+        return this.$el.dataset
+    }
+    closest(selector) {
+        return $(this.$el.closest(selector))
+    }
+    getCoords() {
+        return this.$el.getBoundingClientRect()
+    }
+    css(options = {}) {
+        Object.keys(options).forEach(key => {
+            this.$el.style[key] = options[key]
+        })
+    }
 }
 
 export function $(selector) {
