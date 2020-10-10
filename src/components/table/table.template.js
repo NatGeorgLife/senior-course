@@ -2,20 +2,29 @@ const CHARCODE = {
     A: 65,
     Z: 90
 }
-function createCel() {
+function createCel(_, index) {
     return `
-        <div contenteditable class="row__cell"></div>
+        <div contenteditable data-col="${index}" class="row__cell"></div>
     `
 }
-function createCol(content) {
+function createCol(content, index) {
     return `
-        <div class="row__column">${content}</div>
+        <div data-type="resizable" data-col="${index}" class="row__column">
+            ${content}
+            <div class="column-resize" data-resize="col"></div>
+        </div>
     `
 }
 function createRow(index, content) {
+    const resizer = index ?
+    '<div class="row-resize" data-resize="row"></div>' :
+    ''
     return `
-        <div class="row">
-            <div class="row__info">${index ? index : ''}</div>
+        <div data-type="resizable" class="row">
+            <div class="row__info">
+                ${index ? index : ''}
+                ${resizer}
+            </div>
             <div class="row__data">${content}</div>
         </div>
     `
