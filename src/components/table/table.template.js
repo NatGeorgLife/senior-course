@@ -2,10 +2,17 @@ const CHARCODE = {
     A: 65,
     Z: 90
 }
-function createCel(_, index) {
-    return `
-        <div contenteditable data-col="${index}" class="row__cell"></div>
-    `
+function createCel(row) {
+    return function(_, index) {
+        return `
+            <div 
+            contenteditable 
+            data-type="cell"
+            data-col="${index}"
+            data-id="${row}:${index}" 
+            class="row__cell"></div>
+        `
+    }
 }
 function createCol(content, index) {
     return `
@@ -50,7 +57,7 @@ export function createTable(rowsCount = 15) {
     for (let i = 0; i < rowsCount; i++) {
         const cels = new Array(colsCount)
             .fill('')
-            .map(createCel)
+            .map(createCel(i))
             .join('')
         rows.push(createRow(i + 1, cels))
     }

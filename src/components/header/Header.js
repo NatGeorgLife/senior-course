@@ -2,6 +2,14 @@ import {ExcelComponent} from '@core/ExcelComponent.js'
 
 export class Header extends ExcelComponent {
     static className = 'header'
+
+    constructor($root, options) {
+        super($root, {
+            name: 'Header',
+            ...options
+        })
+    }
+
     toHTML() {
         return `
             <input type="text" value="Новая таблица" class="header__input" />

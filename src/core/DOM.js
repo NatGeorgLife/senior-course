@@ -12,6 +12,16 @@ class DOM {
             return this.$el.outerHTML
         }
     }
+    text(text) {
+        if (typeof text === 'string') {
+            this.$el.textContent = text
+            return this
+        }
+        if (this.$el.tagName.toLowerCase() === 'input') {
+            return this.$el.value.trim()
+        }
+        return this.$el.textContent.trim()
+    }
     clear() {
         this.html('')
         return this
@@ -35,11 +45,24 @@ class DOM {
     off(event, callback) {
         this.$el.removeEventListener(event, callback)
     }
+    find(selector) {
+        return $(this.$el.querySelector(selector))
+    }
     findAll(selector) {
         return this.$el.querySelectorAll(selector)
     }
     get data() {
         return this.$el.dataset
+    }
+    id(parse) {
+        if (parse) {
+            const parsed = this.id().split(':')
+            return {
+                row: +parsed[0],
+                col: +parsed[1]
+            }
+        }
+        return this.data.id
     }
     closest(selector) {
         return $(this.$el.closest(selector))
@@ -51,6 +74,18 @@ class DOM {
         Object.keys(options).forEach(key => {
             this.$el.style[key] = options[key]
         })
+    }
+    addClass(className) {
+        this.$el.classList.add(className)
+        return this
+    }
+    remClass(className) {
+        this.$el.classList.remove(className)
+        return this
+    }
+    focus() {
+        this.$el.focus()
+        return this
     }
 }
 
