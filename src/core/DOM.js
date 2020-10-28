@@ -13,7 +13,7 @@ class DOM {
         }
     }
     text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text
             return this
         }
@@ -75,6 +75,12 @@ class DOM {
             this.$el.style[key] = options[key]
         })
     }
+    getStyles(styles = []) {
+        return styles.reduce((acc, style) => {
+            acc[style] = this.$el.style[style]
+            return acc
+        }, {})
+    }
     addClass(className) {
         this.$el.classList.add(className)
         return this
@@ -86,6 +92,14 @@ class DOM {
     focus() {
         this.$el.focus()
         return this
+    }
+    attr(name, value) {
+        if (value !== undefined) {
+            this.$el.setAttribute(name, value)
+            return this
+        } else {
+            return this.$el.getAttribute(name)
+        }
     }
 }
 
