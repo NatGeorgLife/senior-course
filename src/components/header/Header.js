@@ -1,4 +1,6 @@
 import {ExcelComponent} from '@core/ExcelComponent.js'
+import {$} from '@core/DOM'
+import {changeTableName} from '@/redux/actions'
 
 export class Header extends ExcelComponent {
     static className = 'header'
@@ -6,13 +8,15 @@ export class Header extends ExcelComponent {
     constructor($root, options) {
         super($root, {
             name: 'Header',
+            listeners: ['input'],
             ...options
         })
     }
 
     toHTML() {
+        const tableName = this.store.getState().tableName
         return `
-            <input type="text" value="Новая таблица" class="header__input" />
+            <input type="text" value="${tableName}" class="header__input" />
             <div>
                 <div class="header__button">
                     <i class="material-icons">delete</i>
@@ -22,5 +26,9 @@ export class Header extends ExcelComponent {
                 </div>
             </div>
         `
+    }
+    onInput(event) {
+        const $target = $(event.target)
+        this.$dispatch(changeTableName($target.text()))
     }
 }

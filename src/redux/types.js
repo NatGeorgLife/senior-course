@@ -1,0 +1,5 @@
+export const TABLE_RESIZE = 'TABLE_RESIZE'
+export const TABLE_INPUT = 'TABLE_INPUT'
+export const APPLY_STYLE = 'APPLY_STYLE'
+export const CHANGE_STYLES = 'CHANGE_STYLES'
+export const CHANGE_TABLENAME = 'CHANGE_TABLENAME'
