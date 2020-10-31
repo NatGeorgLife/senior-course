@@ -3,6 +3,7 @@ import {
     TABLE_INPUT,
     CHANGE_STYLES,
     APPLY_STYLE,
+    UPDATE_DATE,
     CHANGE_TABLENAME
 } from '@/redux/types.js'
 
@@ -35,6 +36,8 @@ export function rootReducer(state, action) {
             }
         case CHANGE_TABLENAME:
             return {...state, tableName: action.data}
+        case UPDATE_DATE:
+            return {...state, openedDate: new Date().toJSON()}
         default: return state
     }
 }

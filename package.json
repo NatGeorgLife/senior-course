@@ -12,6 +12,7 @@
   "browserslist": "> 0.25%, not dead",
   "author": "NatGeorgLige <NatGeorgLife@yandex.ru>",
   "scripts": {
+    "lint": "eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"

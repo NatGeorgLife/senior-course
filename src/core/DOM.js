@@ -1,4 +1,4 @@
-class DOM {
+export class DOM {
     constructor(selector) {
         this.$el = typeof selector === 'string' ?
             document.querySelector(selector) :
