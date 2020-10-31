@@ -3,6 +3,7 @@ import {
     TABLE_INPUT,
     CHANGE_STYLES,
     APPLY_STYLE,
+    UPDATE_DATE,
     CHANGE_TABLENAME
 } from '@/redux/types.js'
 
@@ -36,5 +37,10 @@ export function changeTableName(data) {
     return {
         type: CHANGE_TABLENAME,
         data
+    }
+}
+export function updateDate() {
+    return {
+        type: UPDATE_DATE
     }
 }
