@@ -12,7 +12,7 @@ function createCell(row, state) {
     return function(_, index) {
     const id = `${row}:${index}`
     const width = getWidth(state, index)
-    const content = state.dataState[id] ?? ''
+    const content = state.dataState[id] || ''
     const styles = toInlineStyles({...defualtStyles, ...state.stylesState[id]})
 
         return `
@@ -64,10 +64,10 @@ function toChar(_, index) {
 }
 
 function getWidth(state, index) {
-    return (state.colState[index] ?? INITIAL_WIDTH)
+    return (state.colState[index] || INITIAL_WIDTH)
 }
 function getHeight(state, index) {
-    return (state.rowState[index] ?? INITIAL_HEIGHT)
+    return (state.rowState[index] || INITIAL_HEIGHT)
 }
 function withWidthFrom(state) {
     return function(content, index) {
