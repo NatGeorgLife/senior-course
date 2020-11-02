@@ -13,24 +13,58 @@ function storageName(param) {
     return 'excel:' + param
 }
 
+class StateProcessor {
+    constructor(client, delay = 300) {
+        this.client = client
+        this.listen = debounce(this.listen.bind(this), delay)
+    }
+    listen(state) {
+        this.client.save(state)
+    }
+    get() {
+        return this.client.get()
+    }
+}
+
+class LocalStorageClient {
+    constructor(name) {
+        this.name = storageName(name)
+    }
+    save(state) {
+        storage(this.name, state)
+        console.log('state: ', state)
+        return Promise.resolve()
+    }
+    get() {
+        // return Promise.resolve(storage(this.name))
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(storage(this.name))
+            }, 3000)
+        })
+    }
+}
+
 export class ExcelPage extends Page {
-    getRoot() {
-        const param = this.param ? this.param : Date.now().toString()
-
-        const state = storage(storageName(param))
+    constructor(param) {
+        super(param)
+        this.storeSub = {}
+        this.processor = new StateProcessor(
+            new LocalStorageClient(this.param)
+        )
+    }
+   async getRoot() {
+        const state = await this.processor.get()
         const store = createStore(rootReducer, normalizeInitialState(state))
-
-        const stateListener = debounce(state => {
-            if (process.env.NODE_ENV === 'development') {
-                console.log('state changed: ', state)
-            }
-            storage(storageName(param), state)
-        }, 300)
-
-        store.subscribe(stateListener)
+        this.storeSub = store.subscribe(this.processor.listen)
 
         this.excel = new Excel({
-            components: [Header, Toolbar, Formula, Table],
+            components: [
+                Header,
+                Toolbar,
+                Formula,
+                Table
+            ],
             store: store
         })
 
@@ -40,6 +74,7 @@ export class ExcelPage extends Page {
         this.excel.init()
     }
     destroy() {
+        this.storeSub.unsubscribe()
         this.excel.destroy()
     }
 }
